@@ -1,0 +1,34 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="About | 〇〇のホームページ">
+	<img src="/images/IMG_0081.jpeg" alt="プロフィール写真" class="profile-img" />
+	<h1>自己紹介</h1>
+	<p>B1です。最近はsplatoon3にはまっている。</p>
+
+	<section class="card-grid">
+		<div class="card card-wide">
+			<h2 class="card-title">使えるツール、技術（のちに詳しく分類予定）</h2>
+			<div class="tag-list">
+				<span class="tag">Python</span>
+				<span class="tag">PyTorch</span>
+				<span class="tag">TensorFlow</span>
+				<span class="tag">NumPy</span>
+				<span class="tag">matplotlib</span>
+				<span class="tag">Docker</span>
+				<span class="tag">Git</span>
+			</div>
+		</div>
+	</section>
+</Layout>
+
+<style>
+	.profile-img {
+		width: 120px;
+		height: 120px;
+		border-radius: 50%;
+		object-fit: cover;
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+	}
+</style>

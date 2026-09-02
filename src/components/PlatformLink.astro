@@ -1,0 +1,37 @@
+---
+interface Props {
+	platform: string;
+	label: string;
+	href: string;
+}
+
+const { platform, label, href } = Astro.props;
+const iconSrc = `https://cdn.simpleicons.org/${platform}/dbe4f0`;
+---
+
+<a href={href} target="_blank" rel="noopener noreferrer" class="platform-link">
+	<img src={iconSrc} alt="" class="platform-icon" width="16" height="16" loading="lazy" />
+	<span><slot>{label}</slot></span>
+</a>
+
+<style>
+	.platform-link {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		color: var(--text-muted);
+		text-decoration: none;
+		font-family: "JetBrains Mono", monospace;
+		font-size: 0.88rem;
+		transition: color 0.2s ease;
+	}
+
+	.platform-link:hover {
+		color: var(--accent);
+	}
+
+	.platform-icon {
+		flex-shrink: 0;
+		opacity: 0.85;
+	}
+</style>

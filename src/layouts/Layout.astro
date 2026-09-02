@@ -1,0 +1,425 @@
+---
+import { socialLinks } from '../data/socialLinks';
+
+interface Props {
+	title: string;
+	description?: string;
+}
+
+const { title, description = "Home" } = Astro.props;
+---
+<html lang="ja">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="description" content={description} />
+		<title>{title}</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;700&family=JetBrains+Mono:wght@400;600&display=swap"
+			rel="stylesheet"
+		/>
+	</head>
+	<body>
+		<div class="network-bg" aria-hidden="true"></div>
+
+		<svg class="nn-diagram" aria-hidden="true" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+			<g class="nn-edges">
+				<line x1="40" y1="40.0" x2="200" y2="20.0" />
+				<line x1="40" y1="40.0" x2="200" y2="85.0" />
+				<line x1="40" y1="40.0" x2="200" y2="150.0" />
+				<line x1="40" y1="40.0" x2="200" y2="215.0" />
+				<line x1="40" y1="40.0" x2="200" y2="280.0" />
+				<line x1="40" y1="113.0" x2="200" y2="20.0" />
+				<line x1="40" y1="113.0" x2="200" y2="85.0" />
+				<line x1="40" y1="113.0" x2="200" y2="150.0" />
+				<line x1="40" y1="113.0" x2="200" y2="215.0" />
+				<line x1="40" y1="113.0" x2="200" y2="280.0" />
+				<line x1="40" y1="187.0" x2="200" y2="20.0" />
+				<line x1="40" y1="187.0" x2="200" y2="85.0" />
+				<line x1="40" y1="187.0" x2="200" y2="150.0" />
+				<line x1="40" y1="187.0" x2="200" y2="215.0" />
+				<line x1="40" y1="187.0" x2="200" y2="280.0" />
+				<line x1="40" y1="260.0" x2="200" y2="20.0" />
+				<line x1="40" y1="260.0" x2="200" y2="85.0" />
+				<line x1="40" y1="260.0" x2="200" y2="150.0" />
+				<line x1="40" y1="260.0" x2="200" y2="215.0" />
+				<line x1="40" y1="260.0" x2="200" y2="280.0" />
+				<line x1="200" y1="20.0" x2="360" y2="70.0" />
+				<line x1="200" y1="20.0" x2="360" y2="150.0" />
+				<line x1="200" y1="20.0" x2="360" y2="230.0" />
+				<line x1="200" y1="85.0" x2="360" y2="70.0" />
+				<line x1="200" y1="85.0" x2="360" y2="150.0" />
+				<line x1="200" y1="85.0" x2="360" y2="230.0" />
+				<line x1="200" y1="150.0" x2="360" y2="70.0" />
+				<line x1="200" y1="150.0" x2="360" y2="150.0" />
+				<line x1="200" y1="150.0" x2="360" y2="230.0" />
+				<line x1="200" y1="215.0" x2="360" y2="70.0" />
+				<line x1="200" y1="215.0" x2="360" y2="150.0" />
+				<line x1="200" y1="215.0" x2="360" y2="230.0" />
+				<line x1="200" y1="280.0" x2="360" y2="70.0" />
+				<line x1="200" y1="280.0" x2="360" y2="150.0" />
+				<line x1="200" y1="280.0" x2="360" y2="230.0" />
+			</g>
+			<g class="nn-nodes">
+				<circle cx="40" cy="40.0" r="4" style="animation-delay: 0.1s" />
+				<circle cx="40" cy="113.0" r="4" style="animation-delay: 0.4s" />
+				<circle cx="40" cy="187.0" r="4" style="animation-delay: 0.7s" />
+				<circle cx="40" cy="260.0" r="4" style="animation-delay: 1.0s" />
+				<circle cx="200" cy="20.0" r="4" style="animation-delay: 1.3s" />
+				<circle cx="200" cy="85.0" r="4" style="animation-delay: 1.6s" />
+				<circle cx="200" cy="150.0" r="4" style="animation-delay: 1.9s" />
+				<circle cx="200" cy="215.0" r="4" style="animation-delay: 2.2s" />
+				<circle cx="200" cy="280.0" r="4" style="animation-delay: 2.5s" />
+				<circle cx="360" cy="70.0" r="4" style="animation-delay: 2.8s" />
+				<circle cx="360" cy="150.0" r="4" style="animation-delay: 3.1s" />
+				<circle cx="360" cy="230.0" r="4" style="animation-delay: 3.4s" />
+			</g>
+		</svg>
+
+		<div class="formula-bg" aria-hidden="true">
+			<span class="formula">y = Wx + b</span>
+			<span class="formula">σ(x) = 1 / (1 + e⁻ˣ)</span>
+			<span class="formula">∂L/∂w</span>
+			<span class="formula">∇θ J(θ)</span>
+			<span class="formula">argmin L(θ)</span>
+			<span class="formula">ReLU(x) = max(0, x)</span>
+			<span class="formula">softmax(zᵢ)</span>
+			<span class="formula">Σ wᵢxᵢ + b</span>
+		</div>
+
+		<header>
+			<div class="logo">
+				<span class="logo-node"></span>
+				<span class="logo-text">{title}</span>
+			</div>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/blog">Blog</a>
+				<a href="/about">About</a>
+			</nav>
+		</header>
+
+		<main>
+			<slot />
+		</main>
+
+		<footer>
+			<div class="social-links">
+				{socialLinks.map((link) => (
+					<a href={link.href} target="_blank" rel="noopener noreferrer" class="social-link">
+						{link.name}
+					</a>
+				))}
+			</div>
+			<p class="copyright">© 2026 ar4suka</p>
+		</footer>
+	</body>
+</html>
+
+<style>
+	:root {
+		--bg-color: #0b0f1a;
+		--surface-color: #131a2b;
+		--text-color: #dbe4f0;
+		--text-muted: #7c8aa5;
+		--accent: #5eead4;
+		--accent-2: #a78bfa;
+		--node-color: rgba(94, 234, 212, 0.5);
+		--edge-color: rgba(167, 139, 250, 0.15);
+	}
+
+	* {
+		box-sizing: border-box;
+	}
+
+	body {
+		position: relative;
+		max-width: 760px;
+		margin: 0 auto;
+		padding: 2rem 1.5rem;
+		font-family: "Zen Kaku Gothic New", sans-serif;
+		line-height: 1.8;
+		color: var(--text-color);
+		background-color: var(--bg-color);
+		overflow-x: hidden;
+	}
+
+	/* --- ニューラルネットワーク風の背景(ノード + エッジ) --- */
+	.network-bg {
+		position: fixed;
+		inset: 0;
+		z-index: -1;
+		background-color: var(--bg-color);
+		background-image:
+			radial-gradient(circle at 15% 20%, var(--node-color) 0, transparent 2px),
+			radial-gradient(circle at 85% 15%, var(--node-color) 0, transparent 2px),
+			radial-gradient(circle at 40% 40%, var(--node-color) 0, transparent 2px),
+			radial-gradient(circle at 70% 55%, var(--node-color) 0, transparent 2px),
+			radial-gradient(circle at 20% 75%, var(--node-color) 0, transparent 2px),
+			radial-gradient(circle at 90% 80%, var(--node-color) 0, transparent 2px),
+			radial-gradient(circle at 55% 90%, var(--node-color) 0, transparent 2px),
+			linear-gradient(135deg, var(--edge-color) 1px, transparent 1px),
+			linear-gradient(45deg, var(--edge-color) 1px, transparent 1px);
+		background-size:
+			100% 100%, 100% 100%, 100% 100%, 100% 100%,
+			100% 100%, 100% 100%, 100% 100%,
+			60px 60px, 60px 60px;
+		animation: pulse 6s ease-in-out infinite;
+	}
+
+	@keyframes pulse {
+		0%, 100% { opacity: 0.6; }
+		50% { opacity: 1; }
+	}
+
+	/* --- 全結合ニューラルネットワーク図(装飾) --- */
+	.nn-diagram {
+		position: fixed;
+		inset: 0;
+		z-index: -1;
+		width: 100%;
+		height: 100%;
+		opacity: 0.4;
+	}
+
+	.nn-edges line {
+		stroke: var(--edge-color);
+		stroke-width: 0.6;
+	}
+
+	.nn-nodes circle {
+		fill: var(--node-color);
+		animation: node-pulse 4s ease-in-out infinite;
+	}
+
+	@keyframes node-pulse {
+		0%, 100% { opacity: 0.35; r: 3; }
+		50% { opacity: 1; r: 4.5; }
+	}
+
+	/* --- 数式が漂う背景装飾 --- */
+	.formula-bg {
+		position: fixed;
+		inset: 0;
+		z-index: -1;
+		overflow: hidden;
+		pointer-events: none;
+	}
+
+	.formula {
+		position: absolute;
+		font-family: "JetBrains Mono", monospace;
+		font-size: 0.85rem;
+		color: var(--accent);
+		opacity: 0.12;
+		white-space: nowrap;
+		animation: drift 22s ease-in-out infinite alternate;
+	}
+
+	.formula:nth-child(1) { top: 8%; left: 6%; animation-delay: 0s; }
+	.formula:nth-child(2) { top: 18%; left: 78%; animation-delay: -3s; color: var(--accent-2); }
+	.formula:nth-child(3) { top: 82%; left: 12%; animation-delay: -6s; }
+	.formula:nth-child(4) { top: 92%; left: 70%; animation-delay: -9s; color: var(--accent-2); }
+	.formula:nth-child(5) { top: 40%; left: 85%; animation-delay: -12s; }
+	.formula:nth-child(6) { top: 55%; left: 3%; animation-delay: -15s; color: var(--accent-2); }
+	.formula:nth-child(7) { top: 4%; left: 45%; animation-delay: -18s; }
+	.formula:nth-child(8) { top: 70%; left: 45%; animation-delay: -20s; color: var(--accent-2); }
+
+	@keyframes drift {
+		0% { transform: translate(0, 0) rotate(0deg); }
+		100% { transform: translate(10px, -14px) rotate(2deg); }
+	}
+
+	@media (max-width: 640px) {
+		.nn-diagram,
+		.formula-bg {
+			display: none;
+		}
+	}
+
+	header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 1rem;
+		padding-bottom: 1.25rem;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+	}
+
+	.logo {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		font-family: "JetBrains Mono", monospace;
+		font-weight: 600;
+	}
+
+	.logo-node {
+		width: 10px;
+		height: 10px;
+		border-radius: 50%;
+		background: var(--accent);
+		box-shadow: 0 0 8px 2px var(--accent);
+	}
+
+	nav {
+		display: flex;
+		gap: 1.5rem;
+	}
+
+	nav a {
+		position: relative;
+		color: var(--text-muted);
+		text-decoration: none;
+		font-family: "JetBrains Mono", monospace;
+		font-size: 0.9rem;
+		transition: color 0.2s ease;
+	}
+
+	nav a::after {
+		content: "";
+		position: absolute;
+		left: 0;
+		bottom: -4px;
+		width: 0;
+		height: 1px;
+		background: var(--accent);
+		transition: width 0.2s ease;
+	}
+
+	nav a:hover {
+		color: var(--accent);
+	}
+
+	nav a:hover::after {
+		width: 100%;
+	}
+
+	main {
+		background-color: var(--surface-color);
+		border: 1px solid rgba(255, 255, 255, 0.06);
+		border-radius: 12px;
+		box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(94, 234, 212, 0.03);
+		padding: 2rem;
+		margin-top: 1.5rem;
+	}
+
+	main :global(a) {
+		color: var(--accent);
+	}
+
+	main :global(code) {
+		font-family: "JetBrains Mono", monospace;
+		background: rgba(255, 255, 255, 0.06);
+		padding: 0.1rem 0.35rem;
+		border-radius: 4px;
+	}
+
+	/* --- カードグリッド(ページ側から使う共通コンポーネント) --- */
+	main :global(.card-grid) {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+		gap: 1rem;
+		margin-top: 1.5rem;
+	}
+
+	main :global(.card) {
+		background: rgba(255, 255, 255, 0.03);
+		border: 1px solid rgba(255, 255, 255, 0.07);
+		border-radius: 10px;
+		padding: 1.25rem;
+		transition: border-color 0.2s ease, transform 0.2s ease;
+	}
+
+	main :global(.card:hover) {
+		border-color: rgba(94, 234, 212, 0.35);
+		transform: translateY(-2px);
+	}
+
+	main :global(.card-wide) {
+		grid-column: 1 / -1;
+	}
+
+	main :global(.card-title) {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		font-family: "JetBrains Mono", monospace;
+		font-size: 0.95rem;
+		color: var(--accent);
+		margin: 0 0 0.75rem;
+	}
+
+	main :global(.card p) {
+		margin: 0;
+		font-size: 0.9rem;
+		color: var(--text-muted);
+	}
+
+	main :global(.card ul) {
+		margin: 0;
+		padding-left: 1.1rem;
+		font-size: 0.9rem;
+		color: var(--text-muted);
+	}
+
+	main :global(.card li + li) {
+		margin-top: 0.35rem;
+	}
+
+	main :global(.tag-list) {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+	}
+
+	main :global(.tag) {
+		font-family: "JetBrains Mono", monospace;
+		font-size: 0.78rem;
+		color: var(--accent);
+		background: rgba(94, 234, 212, 0.08);
+		border: 1px solid rgba(94, 234, 212, 0.25);
+		border-radius: 6px;
+		padding: 0.2rem 0.55rem;
+	}
+
+	main :global(.gh-contrib-card img) {
+		width: 100%;
+		height: auto;
+		display: block;
+		margin-top: 0.5rem;
+		border-radius: 6px;
+	}
+
+	footer {
+		margin-top: 2.5rem;
+		padding-top: 1.5rem;
+		border-top: 1px solid rgba(255, 255, 255, 0.08);
+	}
+
+	.social-links {
+		display: flex;
+		gap: 1.25rem;
+		margin-bottom: 1rem;
+	}
+
+	.social-link {
+		color: var(--text-muted);
+		text-decoration: none;
+		font-family: "JetBrains Mono", monospace;
+		font-size: 0.85rem;
+		transition: color 0.2s ease;
+	}
+
+	.social-link:hover {
+		color: var(--accent-2);
+	}
+
+	.copyright {
+		font-size: 0.8rem;
+		color: var(--text-muted);
+	}
+</style>
