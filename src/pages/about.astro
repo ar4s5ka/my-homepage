@@ -15,24 +15,26 @@ import { techStack } from '../data/techStack';
 				{techStack.map((category) => (
 					<div class="tech-category">
 						<h3 class="tech-category-title">{category.label}</h3>
-						<div class="tag-list">
+						<div class="tech-grid">
 							{category.items.map((item) => {
 								const iconSrc = item.icon.startsWith("http") || item.icon.startsWith("/")
 									? item.icon
-									: `https://cdn.simpleicons.org/${item.icon}/dbe4f0`;
+									: `https://cdn.simpleicons.org/${item.icon}`;
 								return (
-									<span class="tag tech-tag">
-										<img
-											src={iconSrc}
-											alt=""
-											class="tech-icon"
-											width="14"
-											height="14"
-											loading="lazy"
-											onerror="this.style.display='none'"
-										/>
-										{item.name}
-									</span>
+									<div class="tech-item">
+										<span class="tech-icon-frame">
+											<img
+												src={iconSrc}
+												alt=""
+												class="tech-icon"
+												width="18"
+												height="18"
+												loading="lazy"
+												onerror="this.style.visibility='hidden'"
+											/>
+										</span>
+										<span class="tech-name">{item.name}</span>
+									</div>
 								);
 							})}
 						</div>
@@ -65,14 +67,48 @@ import { techStack } from '../data/techStack';
 		margin: 0 0 0.5rem;
 	}
 
-	.tech-tag {
-		display: inline-flex;
+	.tech-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 0.6rem 1rem;
+	}
+
+	.tech-item {
+		display: flex;
 		align-items: center;
-		gap: 0.4rem;
+		gap: 0.55rem;
+		min-width: 0;
+	}
+
+	.tech-icon-frame {
+		flex-shrink: 0;
+		width: 32px;
+		height: 32px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: #ffffff;
+		border: 1px solid rgba(255, 255, 255, 0.12);
+		border-radius: 8px;
 	}
 
 	.tech-icon {
-		flex-shrink: 0;
-		opacity: 0.85;
+		width: 18px;
+		height: 18px;
+		object-fit: contain;
+	}
+
+	.tech-name {
+		font-family: "JetBrains Mono", monospace;
+		font-size: 0.82rem;
+		color: var(--text-color);
+		overflow-wrap: break-word;
+		min-width: 0;
+	}
+
+	@media (max-width: 520px) {
+		.tech-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
 	}
 </style>
