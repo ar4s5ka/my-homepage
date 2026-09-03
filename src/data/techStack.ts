@@ -18,7 +18,7 @@ export const techStack: TechCategory[] = [
 			{ name: "Python", icon: "python" },
 			{ name: "Java", icon: "Java" },
 			{ name: "HTML", icon: "/icons/html5.svg" },
-			{ name: "CSS", icon: "/icons/css.png" },
+			{ name: "CSS", icon: "/icons/css-transparent.png" },
 		],
 	},
 	{
