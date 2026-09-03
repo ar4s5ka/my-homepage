@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { techStack } from '../data/techStack';
 ---
 
 <Layout title="About | ほめぱげ">
@@ -9,15 +10,34 @@ import Layout from '../layouts/Layout.astro';
 
 	<section class="card-grid">
 		<div class="card card-wide">
-			<h2 class="card-title">使えるツール、技術（のちに詳しく分類予定）</h2>
-			<div class="tag-list">
-				<span class="tag">Python</span>
-				<span class="tag">PyTorch</span>
-				<span class="tag">TensorFlow</span>
-				<span class="tag">NumPy</span>
-				<span class="tag">matplotlib</span>
-				<span class="tag">Docker</span>
-				<span class="tag">Git</span>
+			<h2 class="card-title">使える/学んでる技術</h2>
+			<div class="tech-categories">
+				{techStack.map((category) => (
+					<div class="tech-category">
+						<h3 class="tech-category-title">{category.label}</h3>
+						<div class="tag-list">
+							{category.items.map((item) => {
+								const iconSrc = item.icon.startsWith("http") || item.icon.startsWith("/")
+									? item.icon
+									: `https://cdn.simpleicons.org/${item.icon}/dbe4f0`;
+								return (
+									<span class="tag tech-tag">
+										<img
+											src={iconSrc}
+											alt=""
+											class="tech-icon"
+											width="14"
+											height="14"
+											loading="lazy"
+											onerror="this.style.display='none'"
+										/>
+										{item.name}
+									</span>
+								);
+							})}
+						</div>
+					</div>
+				))}
 			</div>
 		</div>
 	</section>
@@ -30,5 +50,29 @@ import Layout from '../layouts/Layout.astro';
 		border-radius: 50%;
 		object-fit: cover;
 		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+	}
+
+	.tech-categories {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	.tech-category-title {
+		font-family: "JetBrains Mono", monospace;
+		font-size: 0.8rem;
+		color: var(--text-muted);
+		margin: 0 0 0.5rem;
+	}
+
+	.tech-tag {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+	}
+
+	.tech-icon {
+		flex-shrink: 0;
+		opacity: 0.85;
 	}
 </style>
