@@ -14,11 +14,17 @@ export interface TechCategory {
 export const techStack: TechCategory[] = [
 	{
 		label: "言語",
-		items: [{ name: "Python", icon: "python" }],
+		items: [
+			{ name: "Python", icon: "python" },
+			{ name: "Java", icon: "Java" },
+			{ name: "HTML", icon: "/icons/html5.svg" },
+			{ name: "CSS", icon: "/icons/css.png" },
+		],
 	},
 	{
 		label: "AI",
 		items: [
+			{ name: "SakanaAI", icon: "/icons/sakanaai.svg" },
 			{ name: "claude", icon: "claude" },
 			{ name: "claude code", icon: "claudeCode" },
 			{ name: "Gemini", icon: "googleGemini" },
