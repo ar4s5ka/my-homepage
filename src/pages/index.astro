@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import PlatformLink from '../components/PlatformLink.astro';
 import { socialLinks } from '../data/socialLinks';
 import { blogPosts } from '../data/blogPosts';
+import { friendLinks } from '../data/friendLinks';
 
 const githubUsername = 'ar4s5ka';
 const latestPost = blogPosts[0];
@@ -49,6 +50,28 @@ const latestPost = blogPosts[0];
 				<li>ハッカソン出場したい</li>
 			</ul>
 		</div>
+
+		<div class="card card-wide">
+			<h2 class="card-title">リンク集</h2>
+			<ul class="friend-link-list">
+				{friendLinks.map((link) => (
+					<li>
+						<a href={link.url} target="_blank" rel="noopener noreferrer" class="friend-link">
+							<img
+								src={`https://www.google.com/s2/favicons?domain=${new URL(link.url).hostname}&sz=32`}
+								alt=""
+								class="friend-favicon"
+								width="16"
+								height="16"
+								loading="lazy"
+							/>
+							<span class="friend-name">{link.name}</span>
+							{link.description && <span class="friend-desc">{link.description}</span>}
+						</a>
+					</li>
+				))}
+			</ul>
+		</div>
 	</section>
 </Layout>
 
@@ -61,5 +84,47 @@ const latestPost = blogPosts[0];
 
 	.card p {
 		margin-top: 0.6rem;
+	}
+
+	.friend-link-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+		gap: 0.6rem;
+	}
+
+	.friend-link {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.55rem 0.75rem;
+		background: rgba(255, 255, 255, 0.03);
+		border: 1px solid rgba(255, 255, 255, 0.07);
+		border-radius: 8px;
+		text-decoration: none;
+		color: var(--text-color);
+		transition: border-color 0.2s ease, transform 0.2s ease;
+	}
+
+	.friend-link:hover {
+		border-color: rgba(94, 234, 212, 0.35);
+		transform: translateY(-2px);
+	}
+
+	.friend-favicon {
+		flex-shrink: 0;
+		border-radius: 3px;
+	}
+
+	.friend-name {
+		font-family: "JetBrains Mono", monospace;
+		font-size: 0.88rem;
+	}
+
+	.friend-desc {
+		font-size: 0.78rem;
+		color: var(--text-muted);
 	}
 </style>

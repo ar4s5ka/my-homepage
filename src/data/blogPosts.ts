@@ -12,5 +12,10 @@ export const blogPosts: BlogPost[] = [
 		label: "note",
 		title: "パソコンが割れた話",
 		url: "https://note.com/aaaaarsuka/n/nd774e2d8c778",
-	},
+	},{
+		platform: "note",
+		label: "note",
+		title: "大学へ",
+		url: "https://note.com/aaaaarsuka/n/n9436f7a91a30",
+	}
 ];
