@@ -7,8 +7,8 @@ export interface FriendLink {
 // 相互リンク・お世話になっているサイトなどをここに追加してください
 export const friendLinks: FriendLink[] = [
 	{
-		name: "〇〇のサイト",
-		url: "https://example.com",
-		description: "友人のホームページ",
+		name: "トラマト",
+		url: "https://toramutton.me/",
+		description: "このサイト作るのにも使用した、サイト制作のブログを書いていらっしゃる方。ヒカm..",
 	},
 ];
