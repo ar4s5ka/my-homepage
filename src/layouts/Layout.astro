@@ -1,4 +1,5 @@
 ---
+import { ClientRouter } from 'astro:transitions';
 import { socialLinks } from '../data/socialLinks';
 
 interface Props {
@@ -11,6 +12,11 @@ const { title, description = "Home" } = Astro.props;
 <html lang="ja">
 	<head>
 		<meta charset="utf-8" />
+		<script is:inline>
+			if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+				document.documentElement.classList.add('js-reveal');
+			}
+		</script>
 		<meta name="viewport" content="width=device-width" />
 		<meta name="description" content={description} />
 		<title>{title}</title>
@@ -20,11 +26,12 @@ const { title, description = "Home" } = Astro.props;
 			href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;700&family=JetBrains+Mono:wght@400;600&display=swap"
 			rel="stylesheet"
 		/>
+		<ClientRouter />
 	</head>
 	<body>
-		<div class="network-bg" aria-hidden="true"></div>
+		<div class="network-bg" transition:persist aria-hidden="true"></div>
 
-		<svg class="nn-diagram" aria-hidden="true" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+		<svg class="nn-diagram" transition:persist aria-hidden="true" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
 			<g class="nn-edges">
 				<line x1="40" y1="40.0" x2="200" y2="20.0" />
 				<line x1="40" y1="40.0" x2="200" y2="85.0" />
@@ -78,7 +85,7 @@ const { title, description = "Home" } = Astro.props;
 			</g>
 		</svg>
 
-		<div class="formula-bg" aria-hidden="true">
+		<div class="formula-bg" transition:persist aria-hidden="true">
 			<span class="formula">y = Wx + b</span>
 			<span class="formula">σ(x) = 1 / (1 + e⁻ˣ)</span>
 			<span class="formula">∂L/∂w</span>
@@ -89,7 +96,7 @@ const { title, description = "Home" } = Astro.props;
 			<span class="formula">Σ wᵢxᵢ + b</span>
 		</div>
 
-		<header>
+		<header transition:persist>
 			<div class="logo">
 				<span class="logo-node"></span>
 				<span class="logo-text">{title}</span>
@@ -101,11 +108,11 @@ const { title, description = "Home" } = Astro.props;
 			</nav>
 		</header>
 
-		<main>
+		<main transition:animate="fade">
 			<slot />
 		</main>
 
-		<footer>
+		<footer transition:persist>
 			<div class="social-links">
 				{socialLinks.map((link) => (
 					<a href={link.href} target="_blank" rel="noopener noreferrer" class="social-link">
@@ -115,6 +122,113 @@ const { title, description = "Home" } = Astro.props;
 			</div>
 			<p class="copyright">© 2026 ar4suka</p>
 		</footer>
+
+		<script>
+			function initNNPulses() {
+				const svg = document.querySelector<SVGSVGElement>('.nn-diagram');
+				if (!svg || (window as any).__nnPulseInit) return;
+				if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+				(window as any).__nnPulseInit = true;
+
+				const svgNS = 'http://www.w3.org/2000/svg';
+				const pulseLayer = document.createElementNS(svgNS, 'g');
+				pulseLayer.setAttribute('class', 'nn-pulses');
+				svg.appendChild(pulseLayer);
+
+				const allEdges = Array.from(svg.querySelectorAll('.nn-edges line'));
+				const groups = [
+					allEdges.filter((l) => l.getAttribute('x1') === '40'),
+					allEdges.filter((l) => l.getAttribute('x1') === '200'),
+				];
+
+				function firePulse(line: Element) {
+					const x1 = parseFloat(line.getAttribute('x1') || '0');
+					const y1 = parseFloat(line.getAttribute('y1') || '0');
+					const x2 = parseFloat(line.getAttribute('x2') || '0');
+					const y2 = parseFloat(line.getAttribute('y2') || '0');
+					const dot = document.createElementNS(svgNS, 'circle');
+					dot.setAttribute('r', '2.5');
+					dot.setAttribute('class', 'nn-pulse-dot');
+					pulseLayer.appendChild(dot);
+					const duration = 650 + Math.random() * 300;
+					const start = performance.now();
+					function step(now: number) {
+						const t = Math.min(1, (now - start) / duration);
+						dot.setAttribute('cx', String(x1 + (x2 - x1) * t));
+						dot.setAttribute('cy', String(y1 + (y2 - y1) * t));
+						dot.setAttribute('opacity', String(t > 0.85 ? (1 - t) / 0.15 : 1));
+						if (t < 1) requestAnimationFrame(step);
+						else dot.remove();
+					}
+					requestAnimationFrame(step);
+				}
+
+				let layerIndex = 0;
+				function pulseWave() {
+					const group = groups[layerIndex % groups.length];
+					group.forEach((line) => {
+						if (Math.random() < 0.45) {
+							setTimeout(() => firePulse(line), Math.random() * 250);
+						}
+					});
+					layerIndex++;
+					setTimeout(pulseWave, 1300);
+				}
+				pulseWave();
+			}
+
+			function initParallax() {
+				if ((window as any).__parallaxInit) return;
+				if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+				(window as any).__parallaxInit = true;
+
+				window.addEventListener('mousemove', (e) => {
+					const diagram = document.querySelector<HTMLElement>('.nn-diagram');
+					const formula = document.querySelector<HTMLElement>('.formula-bg');
+					const relX = e.clientX / window.innerWidth - 0.5;
+					const relY = e.clientY / window.innerHeight - 0.5;
+					if (diagram) diagram.style.transform = `translate(${relX * -14}px, ${relY * -14}px)`;
+					if (formula) formula.style.transform = `translate(${relX * -6}px, ${relY * -6}px)`;
+				});
+			}
+
+			function initScrollReveal() {
+				if (!document.documentElement.classList.contains('js-reveal')) return;
+				const items = Array.from(document.querySelectorAll<HTMLElement>('main .card, main .post-item'));
+				if (!items.length) return;
+
+				const prevObserver = (window as any).__revealObserver as IntersectionObserver | undefined;
+				if (prevObserver) prevObserver.disconnect();
+
+				const observer = new IntersectionObserver(
+					(entries) => {
+						entries.forEach((entry) => {
+							if (!entry.isIntersecting) return;
+							const el = entry.target as HTMLElement;
+							el.classList.add('is-revealed');
+							el.addEventListener('transitionend', () => { el.style.transitionDelay = ''; }, { once: true });
+							observer.unobserve(el);
+						});
+					},
+					{ threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+				);
+				(window as any).__revealObserver = observer;
+
+				items.forEach((el, i) => {
+					el.style.transitionDelay = `${(i % 6) * 70}ms`;
+					observer.observe(el);
+				});
+			}
+
+			initNNPulses();
+			initParallax();
+			initScrollReveal();
+			document.addEventListener('astro:page-load', () => {
+				initNNPulses();
+				initParallax();
+				initScrollReveal();
+			});
+		</script>
 	</body>
 </html>
 
@@ -182,6 +296,8 @@ const { title, description = "Home" } = Astro.props;
 		width: 100%;
 		height: 100%;
 		opacity: 0.4;
+		transition: transform 0.3s ease-out;
+		will-change: transform;
 	}
 
 	.nn-edges line {
@@ -199,6 +315,11 @@ const { title, description = "Home" } = Astro.props;
 		50% { opacity: 1; r: 4.5; }
 	}
 
+	.nn-pulse-dot {
+		fill: var(--accent);
+		filter: drop-shadow(0 0 3px var(--accent));
+	}
+
 	/* --- 数式が漂う背景装飾 --- */
 	.formula-bg {
 		position: fixed;
@@ -206,6 +327,8 @@ const { title, description = "Home" } = Astro.props;
 		z-index: -1;
 		overflow: hidden;
 		pointer-events: none;
+		transition: transform 0.3s ease-out;
+		will-change: transform;
 	}
 
 	.formula {
@@ -331,12 +454,27 @@ const { title, description = "Home" } = Astro.props;
 		border: 1px solid rgba(255, 255, 255, 0.07);
 		border-radius: 10px;
 		padding: 1.25rem;
-		transition: border-color 0.2s ease, transform 0.2s ease;
+		transition: border-color 0.2s ease, transform 0.2s ease, opacity 0.6s ease, translate 0.6s ease;
 	}
 
 	main :global(.card:hover) {
 		border-color: rgba(94, 234, 212, 0.35);
 		transform: translateY(-2px);
+	}
+
+	/* --- スクロールリビール(カード/リストアイテム共通) ---
+	   :root.js-revealが初期HTMLパース時点で同期的に付与されるため、
+	   JS未実行のまま最初のフレームが描画される(=中身が消えたまま固まる)ことはない。 */
+	:global(html.js-reveal) main :global(.card),
+	:global(html.js-reveal) main :global(.post-item) {
+		opacity: 0;
+		translate: 0 18px;
+	}
+
+	:global(html.js-reveal) main :global(.card.is-revealed),
+	:global(html.js-reveal) main :global(.post-item.is-revealed) {
+		opacity: 1;
+		translate: 0 0;
 	}
 
 	main :global(.card-wide) {
