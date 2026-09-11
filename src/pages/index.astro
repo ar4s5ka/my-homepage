@@ -56,8 +56,8 @@ const latestPost = blogPosts[0];
 			<ul class="friend-link-list">
 				{friendLinks.map((link) => {
 					const hostname = new URL(link.url).hostname;
-					const primaryFavicon = `https://icons.duckduckgo.com/ip3/${hostname}.ico`;
-					const fallbackFavicon = `https://www.google.com/s2/favicons?domain=${hostname}&sz=32`;
+					const primaryFavicon = link.icon ?? `https://icons.duckduckgo.com/ip3/${hostname}.ico`;
+					const fallbackFavicon = link.icon ? undefined : `https://www.google.com/s2/favicons?domain=${hostname}&sz=32`;
 					return (
 						<li>
 							<a href={link.url} target="_blank" rel="noopener noreferrer" class="friend-link" title={link.description}>
@@ -70,7 +70,6 @@ const latestPost = blogPosts[0];
 										height="20"
 										loading="lazy"
 										data-fallback={fallbackFavicon}
-										onerror="if(this.dataset.fallback){this.src=this.dataset.fallback;delete this.dataset.fallback}else{this.style.visibility='hidden'}"
 									/>
 								</span>
 								<span class="friend-text">
@@ -84,6 +83,44 @@ const latestPost = blogPosts[0];
 			</ul>
 		</div>
 	</section>
+
+	<script>
+		// icons.duckduckgo.com / google の favicon 取得元は、favicon が見つからない場合でも
+		// 200扱いで汎用プレースホルダー画像を返すことがある(HTTPステータスは404でも<img>は普通に読み込める)。
+		// そのため onerror では検知できず、既知のプレースホルダーのサイズ(ddg: 48x48, google: 16x16)で判定する。
+		function initFriendFavicons() {
+			document.querySelectorAll<HTMLImageElement>('.friend-favicon').forEach((img) => {
+				const isPlaceholder = () => {
+					// サイト自身から解決できた本物のfaviconにはこの判定を適用しない(誤検知防止)。
+					if (img.src.includes('icons.duckduckgo.com')) {
+						return img.naturalWidth === 48 && img.naturalHeight === 48;
+					}
+					if (img.src.includes('google.com/s2/favicons')) {
+						return img.naturalWidth === 16 && img.naturalHeight === 16;
+					}
+					return false;
+				};
+				const advance = () => {
+					const fallback = img.dataset.fallback;
+					if (fallback) {
+						delete img.dataset.fallback;
+						img.src = fallback;
+					} else {
+						img.style.visibility = 'hidden';
+					}
+				};
+				const check = () => {
+					if (img.complete && img.naturalWidth > 0 && isPlaceholder()) advance();
+				};
+				img.addEventListener('load', check);
+				img.addEventListener('error', advance);
+				check();
+			});
+		}
+
+		initFriendFavicons();
+		document.addEventListener('astro:page-load', initFriendFavicons);
+	</script>
 </Layout>
 
 <style>
