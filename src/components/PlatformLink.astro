@@ -23,11 +23,15 @@ const iconSrc = `https://cdn.simpleicons.org/${platform}/dbe4f0`;
 		text-decoration: none;
 		font-family: "JetBrains Mono", monospace;
 		font-size: 0.88rem;
-		transition: color 0.2s ease;
+		transition: color 0.2s ease, transform 0.08s ease-out;
 	}
 
 	.platform-link:hover {
 		color: var(--accent);
+	}
+
+	.platform-link:active {
+		transform: scale(0.95);
 	}
 
 	.platform-icon {
